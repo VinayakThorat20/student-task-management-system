@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<h2>My Tasks</h2>
+
+<table>
+<tr><th>Task</th><th>Status</th><th>Action</th></tr>
+
+{% for t in tasks %}
+<tr class="{% if t.status=='Completed' %}green{% elif t.due_date < today %}red{% else %}grey{% endif %}">
+<td>{{t.title}}</td>
+<td>{{t.status}}</td>
+<td>
+{% if t.status != 'Completed' %}
+<form method="post">
+<input type="hidden" name="task_id" value="{{t.id}}">
+<button>Complete</button>
+</form>
+{% endif %}
+</td>
+</tr>
+{% endfor %}
+</table>
+
+<a href="/logout">Logout</a>
+
+</body>
+</html>

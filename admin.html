@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<h2>Admin Dashboard</h2>
+
+<form method="post" class="box">
+<input name="title" placeholder="Task Title" required>
+<input name="description" placeholder="Description">
+<input type="date" name="due" required>
+
+<select name="student">
+{% for s in students %}
+<option value="{{s.id}}">{{s.name}}</option>
+{% endfor %}
+</select>
+
+<button>Add Task</button>
+</form>
+
+<table>
+<tr><th>Task</th><th>Student</th><th>Status</th><th>Action</th></tr>
+
+{% for t in tasks %}
+<tr class="{% if t.status=='Completed' %}green{% elif t.due_date < today %}red{% else %}grey{% endif %}">
+<td>{{t.title}}</td>
+<td>{{t.name}}</td>
+<td>{{t.status}}</td>
+<td><a href="/delete/{{t.id}}">Delete</a></td>
+</tr>
+{% endfor %}
+</table>
+
+<a href="/logout">Logout</a>
+
+</body>
+</html>
